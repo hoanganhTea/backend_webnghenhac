@@ -1,6 +1,7 @@
 package com.example.webnghenhac.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,9 @@ public class User {
 
     @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
+
+    @Column(name = "role", length = 255, nullable = false)
+    private String role;
 
     @Column(name = "created_at", columnDefinition = "DATETIME DEFAULT GETDATE()")
     private LocalDateTime createdAt;
@@ -64,6 +68,14 @@ public class User {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

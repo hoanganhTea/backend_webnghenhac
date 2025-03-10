@@ -1,14 +1,16 @@
 package com.example.webnghenhac.controller;
 
+import com.example.webnghenhac.dto.request.ApiResponse;
 import com.example.webnghenhac.dto.request.UserCreationRequest;
 import com.example.webnghenhac.dto.request.UserUpdateRequest;
 import com.example.webnghenhac.entity.User;
 import com.example.webnghenhac.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*") // Thay đổi theo miền của bạn
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -26,8 +28,10 @@ public class UserController {
     }
 
     @PostMapping
-    User createUser(@RequestBody UserCreationRequest request){
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createUser(request));
+        return apiResponse;
     }
 
     @PutMapping("/{id}")
